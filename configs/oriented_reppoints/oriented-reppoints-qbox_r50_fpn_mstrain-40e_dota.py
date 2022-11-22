@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_40e.py',
+    '../_base_/datasets/icdar2019_qbox.py', '../_base_/schedules/schedule_40e.py',
     '../_base_/default_runtime.py'
 ]
 norm_cfg = dict(type='GN', num_groups=32, requires_grad=True)
@@ -76,7 +76,7 @@ model = dict(
         nms_pre=2000,
         min_bbox_size=0,
         score_thr=0.05,
-        nms=dict(type='nms_rotated', iou_threshold=0.4),
+        nms=dict(type='nms_quadri', iou_threshold=0.4),
         max_per_img=2000))
 
 train_pipeline = [

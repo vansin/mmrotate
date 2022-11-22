@@ -68,7 +68,7 @@ val_dataloader = dict(
 test_dataloader = val_dataloader
 
 val_evaluator = dict(
-    type='DOTAMetric', metric='mAP', iou_thrs=0.2, predict_box_type='qbox')
+    type='DOTAMetric', metric='mAP', iou_thrs=0.9, predict_box_type='qbox')
 test_evaluator = val_evaluator
 
 # inference on test dataset and format the output results
