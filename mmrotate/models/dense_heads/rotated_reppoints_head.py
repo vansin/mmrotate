@@ -12,7 +12,7 @@ from torch import Tensor
 
 from mmrotate.registry import MODELS
 from mmrotate.structures.bbox import RotatedBoxes, qbox2rbox
-
+from mmrotate.structures.bbox import QuadriBoxes
 
 @MODELS.register_module()
 class RotatedRepPointsHead(RepPointsHead):
@@ -458,9 +458,10 @@ class RotatedRepPointsHead(RepPointsHead):
                 pts_pos_center = priors[:, :2].repeat(1, self.num_points)
                 pts = pts_pred * self.point_strides[level_idx] + pts_pos_center
                 qboxes = min_area_polygons(pts)
-                bboxes = qbox2rbox(qboxes)
+                bboxes = qboxes
+                # bboxes = qbox2rbox(qboxes)
             else:
-                bboxes = bbox_pred.reshape((0, 5))
+                bboxes = bbox_pred.reshape((0, 8))
 
             mlvl_bboxes.append(bboxes)
             mlvl_scores.append(scores)
@@ -468,7 +469,7 @@ class RotatedRepPointsHead(RepPointsHead):
 
         results = InstanceData()
         results.bboxes = torch.cat(mlvl_bboxes)
-        results.bboxes = RotatedBoxes(results.bboxes)
+        results.bboxes = QuadriBoxes(results.bboxes)
         results.scores = torch.cat(mlvl_scores)
         results.labels = torch.cat(mlvl_labels)
 
