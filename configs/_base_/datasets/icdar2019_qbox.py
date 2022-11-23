@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'DOTADataset'
-data_root = 'data/icdar2019_tracka_modern/'
+data_root = 'data/icdar2019_tracka_modern_qbox/'
 file_client_args = dict(backend='disk')
 
 METAINFO=dict(
@@ -60,8 +60,8 @@ val_dataloader = dict(
         type=dataset_type,
         metainfo=METAINFO,
         data_root=data_root,
-        ann_file='train_change_qbox/',
-        data_prefix=dict(img_path='train_change_img/'),
+        ann_file='test_change_qbox/',
+        data_prefix=dict(img_path='test_change_img/'),
         img_shape=(1024, 1024),
         test_mode=True,
         pipeline=val_pipeline))

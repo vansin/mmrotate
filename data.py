@@ -63,7 +63,7 @@ data_root = 'data/icdar2019_tracka_modern/'
 
 import mmengine
 import mmcv
-ann_path = 'data/icdar2019_tracka_modern/train.json'
+ann_path = 'data/icdar2019_tracka_modern/test.json'
 
 ann = mmengine.load(ann_path)
 
@@ -104,13 +104,13 @@ for image in images:
         print(qbox)
         lines.append(t)
 
-    with open('data/icdar2019_tracka_modern/train_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_tracka_modern/test_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
 
     # 变化
-    dst, qboxs = trans(data_root+'train_img/'+file_name, qboxs)
+    dst, qboxs = trans(data_root+'test_img/'+file_name, qboxs)
 
     lines = []
     for qbox in qboxs:
@@ -122,10 +122,10 @@ for image in images:
         print(qbox)
         lines.append(t)
 
-    # cv2.imwrite(data_root+'train_change_img/'+file_name, dst)
-    cv2.imwrite(data_root+'train_change_img/'+file_name.replace('.jpg','.png'), dst)
+    # cv2.imwrite(data_root+'test_change_img/'+file_name, dst)
+    cv2.imwrite(data_root+'test_change_img/'+file_name.replace('.jpg','.png'), dst)
 
-    with open('data/icdar2019_tracka_modern/train_change_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_tracka_modern/test_change_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
