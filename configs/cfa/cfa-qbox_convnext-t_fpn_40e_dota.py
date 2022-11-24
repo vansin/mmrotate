@@ -22,7 +22,6 @@ model = dict(
         bgr_to_rgb=True,
         pad_size_divisor=32),
     backbone=dict(
-        _delete_=True,
         type='mmcls.ConvNeXt',
         arch='tiny',
         out_indices=[0, 1, 2, 3],
