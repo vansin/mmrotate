@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_1x.py',
+    '../_base_/datasets/icdar2019_qbox.py', '../_base_/schedules/schedule_1x.py',
     '../_base_/default_runtime.py'
 ]
 norm_cfg = dict(type='GN', num_groups=32, requires_grad=True)
