@@ -68,7 +68,7 @@ model = dict(
         nms_pre=2000,
         min_bbox_size=0,
         score_thr=0.05,
-        nms=dict(type='nms_rotated', iou_threshold=0.4),
+        nms=dict(type='nms_quadri', iou_threshold=0.4),
         max_per_img=2000))
 
 train_pipeline = [
