@@ -49,7 +49,7 @@ def main():
 
     model = MODELS.build(cfg.model)
 
-    summary(model, (1, 3, 224, 224), depth=3)
+    summary(model, (1, 3, 1024, 1024), depth=3)
 
 if __name__ == '__main__':
     main()
