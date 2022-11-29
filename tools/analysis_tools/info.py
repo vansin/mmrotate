@@ -48,8 +48,13 @@ def main():
         break
 
     model = MODELS.build(cfg.model)
+    _forward = model.forward
 
-    summary(model, (1, 3, 1024, 1024), depth=3)
+    data = model.data_preprocessor(data_batch)
+    model.forward = partial(_forward, data_samples=data['data_samples'])
+
+    summary(model, data['inputs'].shape, depth=3)
+    # summary(model, (1, 3, 1024, 1024), depth=3)
 
 if __name__ == '__main__':
     main()
