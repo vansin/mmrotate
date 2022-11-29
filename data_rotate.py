@@ -13,8 +13,14 @@ def rotate(ps,m):
     target_point = [[target_point[0][x],target_point[1][x]] for x in range(len(target_point[0]))]
     return target_point
 
-def rotate_img_and_point(img,points,angle,center_x,center_y,resize_rate=1.0):
+def rotate_img_and_point(img_path,points,angle,center_x=None,center_y=None,resize_rate=1.0):
+
+    img = cv2.imread(img_path)
+
     h,w,c = img.shape
+    center_x = w / 2
+    center_y = h / 2
+
     M = cv2.getRotationMatrix2D((center_x,center_y), angle, resize_rate)
     res_img = cv2.warpAffine(img, M, (w, h))
     out_points = rotate(points,M)
@@ -66,13 +72,13 @@ for image in images:
         print(qbox)
         lines.append(t)
 
-    with open('data/icdar2019_tracka_modern_qbox/test_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
-        f.write('\n'.join(lines))
+    # with open('data/icdar2019_tracka_modern_qbox/train_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    #     f.write('\n'.join(lines))
 
 
 
     # 变化
-    dst, qboxs = trans(data_root+'test_img/'+file_name, qboxs)
+    dst, qboxs = rotate_img_and_point(data_root+'train_img/'+file_name, qboxs,10)
 
     lines = []
     for qbox in qboxs:
@@ -85,9 +91,9 @@ for image in images:
         lines.append(t)
 
     # cv2.imwrite(data_root+'test_change_img/'+file_name, dst)
-    cv2.imwrite(data_root+'test_change_img/'+file_name.replace('.jpg','.png'), dst)
+    cv2.imwrite(data_root+'train_rotate_img/'+file_name.replace('.jpg','.png'), dst)
 
-    with open('data/icdar2019_tracka_modern_qbox/test_change_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_tracka_modern_qbox/train_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
