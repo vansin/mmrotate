@@ -1,1 +1,1 @@
-python tools/train.py configs/gliding_vertex/gliding-vertex-rbox_r50_fpn_1x_dota.py 
+python -m debugpy --wait-for-client --listen 0.0.0.0:5678 tools/train.py configs/gliding_vertex/gliding-vertex-qbox_r50_fpn_6x_dota_pre_train_debug.py
