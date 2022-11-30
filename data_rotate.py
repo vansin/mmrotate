@@ -18,13 +18,55 @@ def rotate_img_and_point(img_path,points,angle,center_x=None,center_y=None,resiz
     img = cv2.imread(img_path)
 
     h,w,c = img.shape
-    center_x = w / 2
-    center_y = h / 2
+    # center_x = w / 2
+    # center_y = h / 2
 
-    M = cv2.getRotationMatrix2D((center_x,center_y), angle, resize_rate)
-    res_img = cv2.warpAffine(img, M, (w, h))
-    out_points = rotate(points,M)
-    return res_img,out_points
+    # (h, w) = image.shape[:2]
+    (cX, cY) = (w / 2, h / 2)
+ 
+    M = cv2.getRotationMatrix2D((cX, cY), angle, 1.0)
+    cos = np.abs(M[0, 0])
+    sin = np.abs(M[0, 1])
+ 
+    nW = int((h * sin) + (w * cos))
+    nH = int((h * cos) + (w * sin))
+ 
+    M[0, 2] += (nW / 2) - cX
+
+
+    # M = cv2.getRotationMatrix2D((center_x,center_y), angle, resize_rate)
+    # rotated_h = int((w * np.abs(M[0,1]) + (h * np.abs(M[0,0]))))
+    # rotated_w = int((h * np.abs(M[0,1]) + (w * np.abs(M[0,0]))))
+
+
+    res_img = cv2.warpAffine(img, M, (nW,nH))
+
+    # res_img = cv2.warpAffine(img, M, (int(w*resize_rate), int(h*resize_rate)))
+
+    points_in = []
+
+    for point in points:
+
+        points_in.append([point[0][0],point[0][1]])
+        points_in.append([point[0][2], point[0][3]])
+        points_in.append([point[0][4], point[0][5]])
+        points_in.append([point[0][6], point[0][7]])
+
+    out_points = rotate(points_in,M)
+
+
+    out_points_qbox = []
+    qbox = [[]]
+    for point in out_points:
+        qbox[0].append(point[0])
+        qbox[0].append(point[1]) 
+
+        if qbox[0].__len__() == 8:
+            out_points_qbox.append(qbox)
+            qbox = [[]]
+
+
+    return res_img,out_points_qbox
 
 
 data_root = 'data/icdar2019_tracka_modern_qbox/'
@@ -76,9 +118,10 @@ for image in images:
     #     f.write('\n'.join(lines))
 
 
+    import random
 
     # 变化
-    dst, qboxs = rotate_img_and_point(data_root+'train_img/'+file_name, qboxs,10)
+    dst, qboxs = rotate_img_and_point(data_root+'train_img/'+file_name, qboxs,30*(random.random()-0.5))
 
     lines = []
     for qbox in qboxs:
