@@ -73,7 +73,7 @@ data_root = 'data/icdar2019_tracka_modern_qbox/'
 
 import mmengine
 import mmcv
-ann_path = 'data/icdar2019_tracka_modern_qbox/train.json'
+ann_path = 'data/icdar2019_tracka_modern_qbox/test.json'
 
 ann = mmengine.load(ann_path)
 
@@ -121,7 +121,7 @@ for image in images:
     import random
 
     # 变化
-    dst, qboxs = rotate_img_and_point(data_root+'train_img/'+file_name, qboxs,30*(random.random()-0.5))
+    dst, qboxs = rotate_img_and_point(data_root+'test_img/'+file_name, qboxs,30*(random.random()-0.5))
 
     lines = []
     for qbox in qboxs:
@@ -134,9 +134,9 @@ for image in images:
         lines.append(t)
 
     # cv2.imwrite(data_root+'test_change_img/'+file_name, dst)
-    cv2.imwrite(data_root+'train_rotate_img/'+file_name.replace('.jpg','.png'), dst)
+    cv2.imwrite(data_root+'test_rotate_img/'+file_name.replace('.jpg','.png'), dst)
 
-    with open('data/icdar2019_tracka_modern_qbox/train_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_tracka_modern_qbox/test_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
