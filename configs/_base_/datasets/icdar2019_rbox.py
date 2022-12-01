@@ -14,7 +14,7 @@ train_pipeline = [
     dict(type='mmdet.Resize', scale=(1024, 1024), keep_ratio=True),
     dict(
         type='mmdet.RandomFlip',
-        prob=0.75,
+        prob=0.0,
         direction=['horizontal', 'vertical', 'diagonal']),
     dict(type='mmdet.PackDetInputs')
 ]
