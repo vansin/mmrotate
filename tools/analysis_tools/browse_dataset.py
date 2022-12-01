@@ -80,6 +80,7 @@ def main():
             data_sample,
             show=not args.not_show,
             wait_time=args.show_interval,
+            draw_pred=False,
             out_file=out_file)
 
         progress_bar.update()
