@@ -8,6 +8,7 @@ from functools import partial
 from mmrotate.registry import MODELS
 from mmrotate.utils import register_all_modules
 from mmengine.runner import Runner
+from torchview import draw_graph
 
 register_all_modules()
 
@@ -53,8 +54,11 @@ def main():
     data = model.data_preprocessor(data_batch)
     model.forward = partial(_forward, data_samples=data['data_samples'])
 
+
     summary(model, data['inputs'].shape, depth=3)
     # summary(model, (1, 3, 1024, 1024), depth=3)
+    model_graph = draw_graph(model, input_size=data['inputs'].shape)
+    model_graph.visual_graph.render('1', view=False)
 
 if __name__ == '__main__':
     main()
