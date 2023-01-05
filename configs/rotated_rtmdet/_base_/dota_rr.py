@@ -1,8 +1,17 @@
 # dataset settings
-dataset_type = 'DOTADataset'
-data_root = 'data/split_ss_dota/'
+# dataset_type = 'DOTADataset'
+# data_root = 'data/split_ss_dota/'
 
+# file_client_args = dict(backend='disk')
+
+
+dataset_type = 'DOTADataset'
+data_root = 'data/icdar2019_tracka_modern_qbox/'
 file_client_args = dict(backend='disk')
+
+METAINFO=dict(
+    classes=("table",)
+)
 
 train_pipeline = [
     dict(type='mmdet.LoadImageFromFile', file_client_args=file_client_args),
@@ -57,9 +66,10 @@ train_dataloader = dict(
     pin_memory=False,
     dataset=dict(
         type=dataset_type,
+        metainfo=METAINFO,
         data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
+        ann_file='train_rotate_qbox/',
+        data_prefix=dict(img_path='train_rotate_img/'),
         img_shape=(1024, 1024),
         filter_cfg=dict(filter_empty_gt=True),
         pipeline=train_pipeline))
@@ -72,8 +82,9 @@ val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
+        metainfo=METAINFO,
+        ann_file='test_rotate_qbox/',
+        data_prefix=dict(img_path='test_rotate_img/'),
         img_shape=(1024, 1024),
         test_mode=True,
         pipeline=val_pipeline))
