@@ -4,7 +4,7 @@ data_root = 'data/icdar2019_tracka_modern_qbox/'
 file_client_args = dict(backend='disk')
 
 METAINFO=dict(
-    CLASSES=("table",)
+    classes=("table",)
 )
 
 train_pipeline = [
