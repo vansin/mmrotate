@@ -18,7 +18,7 @@ python projects/headet/tools/browse_dataset.py configs/gliding_vertex/gliding-ve
 # 调试
 
 ```shell
-python -m debugpy --wait-for-client --listen 5678 projects/tools/analysis_tools/browse_dataset.py  projects/headet/configs/rotated_retinanet/rotated-retinanet-rbox-le90_r50_fpn_1x_dota.py
+python -m debugpy --wait-for-client --listen 5678 tools/train.py projects/headet/configs/rotated_retinanet/rotated-retinanet-hbox-le90_r50_fpn_1x_dota.py
 ```
 
 ```shell
