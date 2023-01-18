@@ -5,11 +5,14 @@ default_hooks = dict(
     logger=dict(type='LoggerHook', interval=50),
     param_scheduler=dict(type='ParamSchedulerHook'),
     # checkpoint=dict(type='CheckpointHook', interval=1),
-    checkpoint=dict(type='CheckpointHook', interval=1,save_best=['dota/AP90'],rule='greater', max_keep_ckpts=1),
+    checkpoint=dict(type='CheckpointHook', interval=1, save_best=[
+                    'dota/AP90'], rule='greater', max_keep_ckpts=1),
     sampler_seed=dict(type='DistSamplerSeedHook'),
     visualization=dict(type='mmdet.DetVisualizationHook'))
 
-vis_backends = [dict(type='LocalVisBackend'), dict(type='WandbVisBackend', init_kwargs=dict(project='table-qbox'))]
+vis_backends = [dict(type='LocalVisBackend'),
+                # dict(type='WandbVisBackend', init_kwargs=dict(project='table-qbox'))
+            ]
 
 
 env_cfg = dict(
@@ -28,4 +31,5 @@ load_from = None
 resume = False
 
 
-custom_imports = dict(imports=['mmcls.models','projects.headet.visualization'], allow_failed_imports=False)
+custom_imports = dict(imports=[
+                      'mmcls.models', 'projects.headet.visualization'], allow_failed_imports=False)
