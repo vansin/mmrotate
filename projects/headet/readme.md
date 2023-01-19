@@ -11,6 +11,7 @@
 
 ```shell
 python projects/headet/tools/browse_dataset.py configs/gliding_vertex/gliding-vertex-qbox_r50_fpn_1x_dota.py --stage test
+python projects/headet/tools/browse_dataset.py projects/headet/configs/rotated_retinanet/rotated-retinanet-rbox-h180_r50_fpn_1x_dota.py --stage test
 ```
 
 
