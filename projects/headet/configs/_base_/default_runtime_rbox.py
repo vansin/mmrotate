@@ -24,7 +24,7 @@ env_cfg = dict(
 
 # vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
-    type='RotLocalVisualizer', vis_backends=vis_backends, name='visualizer')
+    type='ORLocalVisualizer', vis_backends=vis_backends, name='visualizer')
 log_processor = dict(type='LogProcessor', window_size=50, by_epoch=True)
 
 log_level = 'INFO'
