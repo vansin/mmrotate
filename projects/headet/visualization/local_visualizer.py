@@ -10,7 +10,9 @@ from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmrotate.registry import VISUALIZERS
-from mmrotate.structures.bbox import QuadriBoxes, RotatedBoxes
+# from mmrotate.structures.bbox import QuadriBoxes, RotatedBoxes
+from mmrotate.structures.bbox import QuadriBoxes
+from projects.headet.structures.bbox import RotatedBoxes
 from mmrotate.visualization.palette import get_palette
 
 
@@ -94,13 +96,13 @@ class ORLocalVisualizer(DetLocalVisualizer):
 
             for i, (poly, label) in enumerate(zip(polygons, labels)):
                 self.draw_points(
-                    positions=bboxes.tensor.reshape(-1, 4, 2)[i],
+                    positions=bboxes.convert_to('qbox').tensor.reshape(-1, 4, 2)[i],
                     colors=[(0,0,0),(255,0,0),(0,255,0),(0,0,255)],
                     sizes=20,
                 )
                 self.draw_texts(
                     ['A', 'B', 'C', 'D'],
-                    positions=bboxes.tensor.reshape(-1, 4, 2)[i],
+                    positions=bboxes.convert_to('qbox').tensor.reshape(-1, 4, 2)[i],
                     colors=[(0,0,0),(255,0,0),(0,255,0),(0,0,255)],
                     font_sizes=20,
                 )
