@@ -1,7 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 
-from .rotated_boxes import RotatedBoxes
+# from .rotated_boxes import RotatedBoxes, rbox2qbox
+from .rotated_boxes import RotatedBoxes, rbox2qbox
 
 __all__ = [
-    'RotatedBoxes'
+    'RotatedBoxes', 'rbox2qbox'
 ]
