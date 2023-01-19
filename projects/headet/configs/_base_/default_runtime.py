@@ -23,7 +23,7 @@ env_cfg = dict(
 
 # vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
-    type='ORLocalVisualizer', vis_backends=vis_backends, name='visualizer')
+    type='RotLocalVisualizer', vis_backends=vis_backends, name='visualizer')
 log_processor = dict(type='LogProcessor', window_size=50, by_epoch=True)
 
 log_level = 'INFO'
@@ -31,5 +31,5 @@ load_from = None
 resume = False
 
 
-custom_imports = dict(imports=[
-                      'mmcls.models', 'projects.headet.visualization'], allow_failed_imports=False)
+# custom_imports = dict(imports=[
+#                       'mmcls.models', 'projects.headet.visualization'], allow_failed_imports=False)
