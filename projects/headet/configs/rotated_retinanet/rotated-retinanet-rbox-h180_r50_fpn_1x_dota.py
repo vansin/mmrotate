@@ -6,6 +6,10 @@ angle_version = 'h180'
 
 custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization', 'projects.headet.structures'], allow_failed_imports=False)
 
+default_hooks = dict(
+    logger=dict(interval=1),
+    visualization=dict(draw=True, interval=10),
+)
 
 model = dict(
     type='mmdet.RetinaNet',
