@@ -11,8 +11,8 @@ default_hooks = dict(
     visualization=dict(type='mmdet.DetVisualizationHook'))
 
 vis_backends = [dict(type='LocalVisBackend'),
-                # dict(type='WandbVisBackend',
-                #      init_kwargs=dict(project='table-rbox'))
+                dict(type='WandbVisBackend',
+                     init_kwargs=dict(project='trbox'))
                 ]
 
 
