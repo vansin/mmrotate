@@ -199,6 +199,32 @@ class RotatedBoxes(mmrotate_RotatedBoxes):
 #  all_line = np.array(line1+ line2+ line3+ line4)
 #  all_line[:,0],all_line[:,1] = all_line[:,1], all_line[:,0]
 #  return all_line
+# @register_box_converter(RotatedBoxes, QuadriBoxes, force=True)
+# def rbox2qbox(boxes: Tensor) -> Tensor:
+#     """copy from mmrotate/structures/bbox/box_converters.py Convert rotated
+#     boxes to quadrilateral boxes.
+
+#     Args:
+#         boxes (Tensor): Rotated box tensor with shape of (..., 5).
+#     Returns:
+#         Tensor: Quadrilateral box tensor with shape of (..., 8).
+#     """
+#     centerx, centery, w, h, theta = torch.split(boxes, (1, 1, 1, 1, 1), dim=-1)
+#     # cos_value, sin_value = torch.cos(theta), torch.sin(theta)
+#     cosa = torch.cos(theta)
+#     sina = torch.sin(theta)
+
+#     print(theta, theta*180/np.pi)
+
+#     wx, wy = w / 2 * cosa, w / 2 * sina
+#     hx, hy = -h / 2 * sina, h / 2 * cosa
+#     p1x, p1y = centerx - wx - hx, centery - wy - hy
+#     p2x, p2y = centerx + wx - hx, centery + wy - hy
+#     p3x, p3y = centerx + wx + hx, centery + wy + hy
+#     p4x, p4y = centerx - wx + hx, centery - wy + hy
+#     return torch.stack([p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y], dim=-1)
+
+
 @register_box_converter(RotatedBoxes, QuadriBoxes, force=True)
 def rbox2qbox(boxes: Tensor) -> Tensor:
     """copy from mmrotate/structures/bbox/box_converters.py Convert rotated
@@ -213,10 +239,50 @@ def rbox2qbox(boxes: Tensor) -> Tensor:
     # cos_value, sin_value = torch.cos(theta), torch.sin(theta)
     cosa = torch.cos(theta)
     sina = torch.sin(theta)
+
+    print(theta, theta*180/np.pi)
+
     wx, wy = w / 2 * cosa, w / 2 * sina
-    hx, hy = -h / 2 * sina, h / 2 * cosa
-    p1x, p1y = centerx - wx - hx, centery - wy - hy
-    p2x, p2y = centerx + wx - hx, centery + wy - hy
-    p3x, p3y = centerx + wx + hx, centery + wy + hy
-    p4x, p4y = centerx - wx + hx, centery - wy + hy
+    hx, hy = h / 2 * sina, h / 2 * cosa
+    p1x, p1y = centerx - wx + hx, centery - wy - hy
+    p2x, p2y = centerx + wx + hx, centery + wy - hy
+    p3x, p3y = centerx + wx - hx, centery + wy + hy
+    p4x, p4y = centerx - wx - hx, centery - wy + hy
     return torch.stack([p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y], dim=-1)
+
+
+@register_box_converter(QuadriBoxes, RotatedBoxes, force=True)
+def qbox2rbox(boxes: Tensor) -> Tensor:
+    """Convert quadrilateral boxes to rotated boxes.
+
+    Args:
+        boxes (Tensor): Quadrilateral box tensor with shape of (..., 8).
+
+    Returns:
+        Tensor: Rotated box tensor with shape of (..., 5).
+    """
+    # TODO support tensor-based minAreaRect later
+    original_shape = boxes.shape[:-1]
+    points = boxes.cpu().numpy().reshape(-1, 4, 2)
+    rboxes = []
+    for pts in points:
+
+        # calculate the center of the line
+        x1,y1 = pts[0]
+        x2,y2 = pts[1]
+
+        theta = np.arctan2(y2-y1, x2-x1)
+
+        w = np.sqrt((x2-x1)**2 + (y2-y1)**2)
+        h = np.sqrt((pts[2][0]-pts[1][0])**2 + (pts[2][1]-pts[1][1])**2)
+
+        (x, y), (w1, h1), angle = cv2.minAreaRect(pts)
+        # assert np.abs((angle / 180 * np.pi) - theta%(np.pi/2)) < 1e-4
+        assert np.abs(w - w1) < 1e-2 or np.abs(w - h1) < 1e-2
+        assert np.abs(h - w1) < 1e-2 or np.abs(h - h1) < 1e-2
+
+        rboxes.append([x, y, w, h, theta])
+
+
+    rboxes = boxes.new_tensor(rboxes)
+    return rboxes.view(*original_shape, 5)
