@@ -62,8 +62,10 @@ val_dataloader = dict(
         type=dataset_type,
         metainfo=METAINFO,
         data_root=data_root,
+        # ann_file='test_rotate_qbox/',
         ann_file='test_rotate_qbox/',
         data_prefix=dict(img_path='test_rotate_img/'),
+        # data_prefix=dict(img_path='test_rotate_img/'),
         img_shape=(1024, 1024),
         test_mode=True,
         pipeline=val_pipeline))
