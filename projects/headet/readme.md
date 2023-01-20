@@ -11,7 +11,7 @@
 
 ```shell
 python projects/headet/tools/browse_dataset.py configs/gliding_vertex/gliding-vertex-qbox_r50_fpn_1x_dota.py --stage test
-python projects/headet/tools/browse_dataset.py projects/headet/configs/rotated_retinanet/rotated-retinanet-rbox-h180_r50_fpn_1x_dota.py --stage test
+python projects/headet/tools/browse_dataset.py projects/headet/configs/rotated_retinanet/rotated-retinanet-rbox-h180_r50_fpn_1x_dota.py --stage train
 ```
 
 
@@ -25,4 +25,5 @@ python -m debugpy --wait-for-client --listen 5678 tools/train.py projects/headet
 
 ```shell
  python -m debugpy --wait-for-client --listen 5678 projects/headet/tools/browse_dataset.py projects/headet/configs/gliding_vertex/gliding-vertex-qbox_r50_fpn_1x_dota.py
+ python -m debugpy --wait-for-client --listen 5678 projects/headet/tools/browse_dataset.py projects/headet/configs/rotated_retinanet/rotated-retinanet-rbox-h180_r50_fpn_1x_dota.py --stage train
  ```
