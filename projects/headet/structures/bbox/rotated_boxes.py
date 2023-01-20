@@ -240,7 +240,7 @@ def rbox2qbox(boxes: Tensor) -> Tensor:
     cosa = torch.cos(theta)
     sina = torch.sin(theta)
 
-    print(theta, theta*180/np.pi)
+    # print(theta, theta*180/np.pi)
 
     wx, wy = w / 2 * cosa, w / 2 * sina
     hx, hy = h / 2 * sina, h / 2 * cosa
