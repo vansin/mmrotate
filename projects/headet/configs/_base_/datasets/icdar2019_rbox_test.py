@@ -47,8 +47,8 @@ train_dataloader = dict(
         type=dataset_type,
         metainfo=METAINFO,
         data_root=data_root,
-        ann_file='train_qbox/',
-        data_prefix=dict(img_path='train_img/'),
+        ann_file='train_rotate_qbox/',
+        data_prefix=dict(img_path='train_rotate_img/'),
         img_shape=(1024, 1024),
         filter_cfg=dict(filter_empty_gt=True),
         pipeline=train_pipeline))
