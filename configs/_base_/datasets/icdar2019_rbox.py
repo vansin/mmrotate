@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'DOTADataset'
-data_root = 'data/icdar2019_tracka_modern_qbox/'
+data_root = 'data/icdar2019_cTDaRA_modern_qbox/'
 file_client_args = dict(backend='disk')
 
 METAINFO=dict(

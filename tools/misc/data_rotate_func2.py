@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 
-image = cv2.imread("data/icdar2019_tracka_modern_qbox/test_img/cTDaR_t10101.jpg")
+image = cv2.imread("data/icdar2019_cTDaRA_modern_qbox/test_img/cTDaR_t10101.jpg")
 
 height, width, channels = image.shape
 

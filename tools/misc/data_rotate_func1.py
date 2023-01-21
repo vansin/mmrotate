@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 # Load the image
-img = cv2.imread("data/icdar2019_tracka_modern_qbox/test_img/cTDaR_t10101.jpg")
+img = cv2.imread("data/icdar2019_cTDaRA_modern_qbox/test_img/cTDaR_t10101.jpg")
 
 # Get the image dimensions
 rows, cols = img.shape[:2]

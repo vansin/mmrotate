@@ -141,11 +141,11 @@ def rotate_img_and_point(img_path,points,angle,center_x=None,center_y=None,resiz
     return res_img,out_points_qbox
 
 
-data_root = 'data/icdar2019_tracka_modern_qbox/'
+data_root = 'data/icdar2019_cTDaRA_modern_qbox/'
 
 import mmengine
 import mmcv
-ann_path = 'data/icdar2019_tracka_modern_qbox/train.json'
+ann_path = 'data/icdar2019_cTDaRA_modern_qbox/train.json'
 
 ann = mmengine.load(ann_path)
 
@@ -186,7 +186,7 @@ for image in images:
         print(qbox)
         lines.append(t)
 
-    with open('data/icdar2019_tracka_modern_qbox/train_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_cTDaRA_modern_qbox/train_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
@@ -209,7 +209,7 @@ for image in images:
     # cv2.imwrite(data_root+'train_change_img/'+file_name, dst)
     cv2.imwrite(data_root+'train_rotate_img/'+file_name.replace('.jpg','.png'), dst)
 
-    with open('data/icdar2019_tracka_modern_qbox/train_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/icdar2019_cTDaRA_modern_qbox/train_rotate_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
