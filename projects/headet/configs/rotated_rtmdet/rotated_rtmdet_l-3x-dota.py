@@ -4,7 +4,10 @@ _base_ = [
 ]
 checkpoint = 'https://download.openmmlab.com/mmdetection/v3.0/rtmdet/cspnext_rsb_pretrain/cspnext-l_8xb256-rsb-a1-600e_in1k-6a760974.pth'  # noqa
 
-angle_version = 'le90'
+custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization', 'projects.headet.structures'], allow_failed_imports=False)
+
+
+angle_version = 'h180'
 model = dict(
     type='mmdet.RTMDet',
     data_preprocessor=dict(
