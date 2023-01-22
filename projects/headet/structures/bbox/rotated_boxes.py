@@ -124,6 +124,51 @@ class RotatedBoxes(mmrotate_RotatedBoxes):
                                       flipped[..., 4] - 2 * np.pi, flipped[...,
                                                                            4])
 
+
+    def rotate_auto_bound_(self, center: Tuple[float, float], angle: float, img_shape_record) -> None:
+        """Rotate all boxes in-place.
+
+        copy from mmrotate
+        Args:
+            center (Tuple[float, float]): Rotation origin.
+            angle (float): Rotation angle represented in degrees. Positive
+                values mean clockwise rotation.
+        """
+        boxes = self.tensor
+
+        h,w,new_h,new_w= img_shape_record[0][0],img_shape_record[0][1],img_shape_record[1][0],img_shape_record[1][1]
+
+
+        rotation_matrix = boxes.new_tensor(
+            cv2.getRotationMatrix2D(((w - 1) * 0.5, (h - 1) * 0.5), -angle, 1.0))
+
+        
+        # follow change the rotation matrix according to the change img shape
+        # cos = np.abs(rotation_matrix[0, 0])
+        # sin = np.abs(rotation_matrix[0, 1])
+        # new_w = h * sin + w * cos
+        # new_h = h * cos + w * sin
+
+
+        rotation_matrix[0, 2] += (new_w - w) * 0.5
+        rotation_matrix[1, 2] += (new_h - h) * 0.5
+
+        # w = int(np.round(new_w))
+        # h = int(np.round(new_h))
+
+        # 
+
+        centers, wh, t = torch.split(boxes, [2, 2, 1], dim=-1)
+        t = t % (2 * np.pi) + angle / 180 * np.pi
+        t = torch.where(t >= np.pi, t - 2 * np.pi, t)
+        centers = torch.cat(
+            [centers, centers.new_ones(*centers.shape[:-1], 1)], dim=-1)
+        centers_T = torch.transpose(centers, -1, -2)
+        centers_T = torch.matmul(rotation_matrix, centers_T)
+        centers = torch.transpose(centers_T, -1, -2)
+        self.tensor = torch.cat([centers, wh, t], dim=-1)
+
+
     def rotate_(self, center: Tuple[float, float], angle: float) -> None:
         """Rotate all boxes in-place.
 
