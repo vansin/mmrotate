@@ -23,6 +23,11 @@ def parse_args():
         default=False,
         help='enable automatic-mixed-precision training')
     parser.add_argument(
+        '--d',
+        action='store_true',
+        default=False,
+        help='debug mode')
+    parser.add_argument(
         '--auto-scale-lr',
         action='store_true',
         help='enable automatically scaling LR.')
@@ -104,6 +109,9 @@ def main():
                                ' configuration file.')
 
     cfg.resume = args.resume
+
+    if args.d is True:
+        cfg.visualizer.vis_backends = [dict(type='LocalVisBackend')]
 
     # build the runner from config
     if 'runner_type' not in cfg:
