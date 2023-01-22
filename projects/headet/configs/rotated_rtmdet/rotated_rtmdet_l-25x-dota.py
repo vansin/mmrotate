@@ -1,10 +1,13 @@
 _base_ = [
-    './_base_/default_runtime.py', './_base_/schedule_3x.py',
-    './_base_/dota_rr_ms.py'
+    './_base_/default_runtime.py', './_base_/schedule_25x.py',
+    './_base_/dota_rr.py'
 ]
 checkpoint = 'https://download.openmmlab.com/mmdetection/v3.0/rtmdet/cspnext_rsb_pretrain/cspnext-l_8xb256-rsb-a1-600e_in1k-6a760974.pth'  # noqa
 
-angle_version = 'le90'
+custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization', 'projects.headet.structures'], allow_failed_imports=False)
+
+
+angle_version = 'h180'
 model = dict(
     type='mmdet.RTMDet',
     data_preprocessor=dict(
@@ -35,7 +38,7 @@ model = dict(
         act_cfg=dict(type='SiLU')),
     bbox_head=dict(
         type='RotatedRTMDetSepBNHead',
-        num_classes=15,
+        num_classes=1,
         in_channels=256,
         stacked_convs=2,
         feat_channels=256,
