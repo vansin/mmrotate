@@ -103,6 +103,8 @@ def main():
     if args.show or args.show_dir:
         cfg = trigger_visualization_hook(cfg, args)
 
+    cfg.visualizer.vis_backends = [dict(type='LocalVisBackend')]
+
     # build the runner from config
     if 'runner_type' not in cfg:
         # build the default runner
