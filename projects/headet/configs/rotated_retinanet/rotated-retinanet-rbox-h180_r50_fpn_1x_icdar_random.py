@@ -4,8 +4,8 @@ _base_ = [
 ]
 angle_version = 'h180'
 
-custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization',
-                      'projects.headet.structures', 'projects.headet.datasets.transforms'], allow_failed_imports=False)
+# custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization',
+#                       'projects.headet.structures', 'projects.headet.datasets.transforms'], allow_failed_imports=False)
 
 default_hooks = dict(
     logger=dict(interval=1),
