@@ -13,6 +13,7 @@ train_pipeline = [
     dict(type='ConvertBoxType', box_type_mapping=dict(gt_bboxes='rbox')),
     dict(
         type='RandomRotate',
+        rotate_type='RotateAutoBound',
         prob=0.99,
         angle_range=180,
         rect_obj_labels=[9, 11]),
