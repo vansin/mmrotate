@@ -117,6 +117,10 @@ class ORLocalVisualizer(DetLocalVisualizer):
                     score = round(float(instances.scores[i]) * 100, 1)
                     label_text += f': {score}'
 
+                angle_text ='angle '+str(np.round(180*bboxes.numpy()[i][4]/np.pi,1))
+
+                label_text+=' '+angle_text
+
                 self.draw_texts(
                     label_text,
                     pos,
@@ -128,6 +132,18 @@ class ORLocalVisualizer(DetLocalVisualizer):
                         'pad': 0.7,
                         'edgecolor': 'none'
                     }])
+                
+                # self.draw_texts(
+                #     angle_text,
+                #     pos+3*int(13 * scales[i]),
+                #     colors=text_colors[i],
+                #     font_sizes=int(13 * scales[i]),
+                #     bboxes=[{
+                #         'facecolor': 'black',
+                #         'alpha': 0.8,
+                #         'pad': 0.7,
+                #         'edgecolor': 'none'
+                #     }])
 
         if 'masks' in instances:
             labels = instances.labels
