@@ -11,6 +11,12 @@ train_pipeline = [
     dict(type='mmdet.LoadImageFromFile', file_client_args=file_client_args),
     dict(type='mmdet.LoadAnnotations', with_bbox=True, box_type='qbox'),
     dict(type='ConvertBoxType', box_type_mapping=dict(gt_bboxes='rbox')),
+    dict(
+        type='RandomRotate',
+        rotate_type='RotateAutoBound',
+        prob=0.99,
+        angle_range=180,
+        rect_obj_labels=[9, 11]),
     dict(type='mmdet.Resize', scale=(1024, 1024), keep_ratio=True),
     dict(
         type='mmdet.RandomFlip',
@@ -47,8 +53,8 @@ train_dataloader = dict(
         type=dataset_type,
         metainfo=METAINFO,
         data_root=data_root,
-        ann_file='train_rotate_qbox/',
-        data_prefix=dict(img_path='train_rotate_img/'),
+        ann_file='ann_train_hbbox/',
+        data_prefix=dict(img_path='img_train_hbbox/'),
         img_shape=(1024, 1024),
         filter_cfg=dict(filter_empty_gt=True),
         pipeline=train_pipeline))
@@ -62,10 +68,10 @@ val_dataloader = dict(
         type=dataset_type,
         metainfo=METAINFO,
         data_root=data_root,
-        # ann_file='test_rotate_qbox/',
-        ann_file='test_rotate_qbox/',
-        data_prefix=dict(img_path='test_rotate_img/'),
-        # data_prefix=dict(img_path='test_rotate_img/'),
+        # ann_file='ann_test_obbox/',
+        ann_file='ann_test_obbox/',
+        data_prefix=dict(img_path='img_test_obbox/'),
+        # data_prefix=dict(img_path='img_test_obbox/'),
         img_shape=(1024, 1024),
         test_mode=True,
         pipeline=val_pipeline))

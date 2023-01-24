@@ -31,6 +31,10 @@ log_level = 'INFO'
 load_from = None
 resume = False
 
-custom_imports = dict(imports=['mmcls.models', 'projects.headet.visualization',
-                      'projects.headet.structures', 'projects.headet.datasets.transforms',
-                               'projects.headet.evaluation'], allow_failed_imports=False)
+custom_imports = dict(imports=[
+    'mmcls.models',
+    'projects.headet.visualization',
+    'projects.headet.structures',
+    'projects.headet.datasets.transforms',
+    'projects.headet.evaluation'
+    ], allow_failed_imports=False)

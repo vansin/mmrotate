@@ -186,7 +186,7 @@ for image in images:
         print(qbox)
         lines.append(t)
 
-    with open('data/ICDAR2019_MTD_HOQ/train_qbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
+    with open('data/ICDAR2019_MTD_HOQ/ann_train_hbbox/'+file_name.replace('.jpg','.txt'), 'w') as f:
         f.write('\n'.join(lines))
 
 
