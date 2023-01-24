@@ -1,8 +1,10 @@
 # dataset settings
 dataset_type = 'DOTADataset'
-data_root = 'data/split_ss_dota/'
-
+data_root = 'data/ICDAR2019_MTD_HOQ/'
 file_client_args = dict(backend='disk')
+METAINFO = dict(
+    classes=("table",)
+)
 
 train_pipeline = [
     dict(type='mmdet.LoadImageFromFile', file_client_args=file_client_args),
@@ -56,13 +58,17 @@ train_dataloader = dict(
     batch_sampler=None,
     pin_memory=False,
     dataset=dict(
-        type=dataset_type,
-        data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
-        img_shape=(1024, 1024),
-        filter_cfg=dict(filter_empty_gt=True),
-        pipeline=train_pipeline))
+        type='RepeatDataset',
+        times=1,
+        dataset=dict(
+            type=dataset_type,
+            metainfo=METAINFO,
+            data_root=data_root,
+            ann_file='ann_train_obbox/',
+            data_prefix=dict(img_path='img_train_obbox/'),
+            img_shape=(1024, 1024),
+            filter_cfg=dict(filter_empty_gt=True),
+            pipeline=train_pipeline)))
 val_dataloader = dict(
     batch_size=1,
     num_workers=2,
@@ -71,16 +77,39 @@ val_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
         type=dataset_type,
+        metainfo=METAINFO,
         data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
+        # ann_file='ann_test_obbox/',
+        ann_file='ann_test_obbox/',
+        data_prefix=dict(img_path='img_test_obbox/'),
+        # data_prefix=dict(img_path='img_test_obbox/'),
         img_shape=(1024, 1024),
         test_mode=True,
         pipeline=val_pipeline))
 test_dataloader = val_dataloader
 
-val_evaluator = dict(type='DOTAMetric', metric='mAP')
-test_evaluator = val_evaluator
+val_evaluator = [
+    # dict(
+    #     type='DOTAHeadMetric',
+    #     metric='mAP',
+    #     iou_thrs=[0.5],
+    #     hangle_thr=90),
+    dict(
+        type='DOTAMetric',
+        metric='mAP',
+        iou_thrs=[0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
+]
+test_evaluator = [
+    # dict(
+    #     type='DOTAHeadMetric',
+    #     metric='mAP',
+    #     iou_thrs=[0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95],
+    #     hangle_thr=90),
+    dict(
+        type='DOTAMetric',
+        metric='mAP',
+        iou_thrs=[0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
+]
 
 # inference on test dataset and format the output results
 # for submission. Note: the test set has no annotation.

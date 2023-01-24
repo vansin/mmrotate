@@ -75,7 +75,7 @@ model = dict(
                 in_channels=256,
                 fc_out_channels=1024,
                 roi_feat_size=7,
-                num_classes=15,
+                num_classes=1,
                 reg_predictor_cfg=dict(type='mmdet.Linear'),
                 cls_predictor_cfg=dict(type='mmdet.Linear'),
                 bbox_coder=dict(
@@ -99,7 +99,7 @@ model = dict(
                 in_channels=256,
                 fc_out_channels=1024,
                 roi_feat_size=7,
-                num_classes=15,
+                num_classes=1,
                 reg_predictor_cfg=dict(type='mmdet.Linear'),
                 cls_predictor_cfg=dict(type='mmdet.Linear'),
                 bbox_coder=dict(

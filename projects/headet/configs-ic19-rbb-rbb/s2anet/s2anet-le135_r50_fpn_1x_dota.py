@@ -33,7 +33,7 @@ model = dict(
         num_outs=5),
     bbox_head_init=dict(
         type='S2AHead',
-        num_classes=15,
+        num_classes=1,
         in_channels=256,
         stacked_convs=2,
         feat_channels=256,
@@ -62,7 +62,7 @@ model = dict(
     bbox_head_refine=[
         dict(
             type='S2ARefineHead',
-            num_classes=15,
+            num_classes=1,
             in_channels=256,
             stacked_convs=2,
             feat_channels=256,

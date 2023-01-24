@@ -33,7 +33,7 @@ model = dict(
         num_outs=5),
     bbox_head_init=dict(
         type='R3Head',
-        num_classes=15,
+        num_classes=1,
         in_channels=256,
         stacked_convs=4,
         feat_channels=256,
@@ -63,7 +63,7 @@ model = dict(
     bbox_head_refine=[
         dict(
             type='R3RefineHead',
-            num_classes=15,
+            num_classes=1,
             in_channels=256,
             stacked_convs=4,
             feat_channels=256,
@@ -91,7 +91,7 @@ model = dict(
                 type='mmdet.SmoothL1Loss', beta=0.11, loss_weight=1.0)),
         dict(
             type='R3RefineHead',
-            num_classes=15,
+            num_classes=1,
             in_channels=256,
             stacked_convs=4,
             feat_channels=256,
