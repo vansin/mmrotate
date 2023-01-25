@@ -51,7 +51,7 @@ test_pipeline = [
                    'scale_factor'))
 ]
 train_dataloader = dict(
-    batch_size=8,
+    batch_size=2,
     num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -59,7 +59,7 @@ train_dataloader = dict(
     pin_memory=False,
     dataset=dict(
         type='RepeatDataset',
-        times=3,
+        times=1,
         dataset=dict(
             type=dataset_type,
             metainfo=METAINFO,
