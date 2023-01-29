@@ -52,6 +52,9 @@ if __name__ == '__main__':
             pths = [pth for pth in pths if pth.endswith('.pth')]
 
             sorted(pths, key=lambda x: int(x.split('_')[-1].split('.')[0]))
-
-            os.system(
-                f'python tools/test.py {prefix}{group}/{config}/{config}.py {prefix}{group}/{config}/{pths[-1]} --mongo {mongo}')
+            
+            try:
+                cmd = f'python tools/test.py {prefix}{group}/{config}/{config}.py {prefix}{group}/{config}/{pths[-1]} --mongo {mongo}'
+                os.system(cmd)
+            except Exception as e:
+                print(e)
