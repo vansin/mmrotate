@@ -4,16 +4,26 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Test (and eval) a model')
+
     parser.add_argument(
         '--mongo',
-        default='test1'
+        default='test1',
         type=str,
         help='dump predictions to a pickle file for offline evaluation')
+
+    # parser.add_argument(
+    #     '--prefix',
+    #     type=str,
+    #     default='work_dirs/headet/configs-ic19-rbb-rbb/'
+    #     help='dump prediction')
+
     parser.add_argument(
         '--prefix',
+        default='work_dirs/headet/configs-ic19-rbb-rbb/',
         type=str,
-        default='work_dirs/headet/configs-ic19-rbb-rbb/'
         help='dump predictions to a pickle file for offline evaluation')
+    
+
     args = parser.parse_args()
 
     return args
