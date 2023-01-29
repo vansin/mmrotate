@@ -1,25 +1,47 @@
 import os
+import argparse
 
 
-prefix = 'work_dirs/headet/configs-ic19-rbb-rbb/'
+def parse_args():
+    parser = argparse.ArgumentParser(description='Test (and eval) a model')
+    parser.add_argument(
+        '--mongo',
+        default='test1'
+        type=str,
+        help='dump predictions to a pickle file for offline evaluation')
+    parser.add_argument(
+        '--prefix',
+        type=str,
+        default='work_dirs/headet/configs-ic19-rbb-rbb/'
+        help='dump predictions to a pickle file for offline evaluation')
+    args = parser.parse_args()
 
-groups = os.listdir(prefix)
-mongo = 'headet0'
+    return args
 
-for i,group in enumerate(groups):
 
-    print(f'group {i} of {len(groups)}: {group}')
+if __name__ == '__main__':
 
-    group_configs = os.listdir(f'{prefix}{group}')
+    args = parse_args()
 
-    for j,config in enumerate(group_configs):
-        
-        print(f'config {j} of {len(group_configs)}: {config}')
+    mongo = args.mongo
+    prefix = args.prefix
 
-        pths = os.listdir(f'{prefix}{group}/{config}')
-        pths = [pth for pth in pths if pth.endswith('.pth')]
+    groups = os.listdir(prefix)
 
-        sorted(pths, key=lambda x: int(x.split('_')[-1].split('.')[0]))
+    for i, group in enumerate(groups):
 
-        os.system(f'python tools/test.py {prefix}{group}/{config}/{config}.py {prefix}{group}/{config}/{pths[-1]} --mongo {mongo}')
-    
+        print(f'group {i} of {len(groups)}: {group}')
+
+        group_configs = os.listdir(f'{prefix}{group}')
+
+        for j, config in enumerate(group_configs):
+
+            print(f'config {j} of {len(group_configs)}: {config}')
+
+            pths = os.listdir(f'{prefix}{group}/{config}')
+            pths = [pth for pth in pths if pth.endswith('.pth')]
+
+            sorted(pths, key=lambda x: int(x.split('_')[-1].split('.')[0]))
+
+            os.system(
+                f'python tools/test.py {prefix}{group}/{config}/{config}.py {prefix}{group}/{config}/{pths[-1]} --mongo {mongo}')
