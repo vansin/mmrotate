@@ -1,6 +1,6 @@
 # heading detection
 
-本项目尝试支持从HBBox、RBBox到OBBox对象的检测
+本项目尝试支持360的矩形框检测。
 
 # 数据集准备
 
