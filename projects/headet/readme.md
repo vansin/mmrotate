@@ -6,10 +6,6 @@
 
 本仓库在 [ICDAR2019_cTDaRA Modern](https://github.com/cndplab-founder/ICDAR2019_cTDaR)数据集基础上生成而来。
 
-```shell
-git clone https://github.com/vansin/ICDAR2019_cTDaR.git -b new ICDAR2019_MTD_HOQ
-```
-
 
 ## 数据集下载
 
@@ -48,7 +44,7 @@ ICDAR2019_MTD_HOQ
 ![image](https://user-images.githubusercontent.com/25839884/214334546-b9a940e3-9e88-47ae-aa96-5f2d6444c20c.png)
 
 
-数据集是由语义信息的，ABCD点是表格左上角开始，依次顺时钟的四个点。
+数据集有由语义信息的，ABCD点是表格左上角开始，依次顺时钟的四个点。
 ![](https://cdn.vansin.top//picgo/3e4a042cd4b4725c4ae05aa7471467e.png)
 
 
