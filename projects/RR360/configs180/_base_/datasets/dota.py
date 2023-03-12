@@ -42,17 +42,14 @@ train_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=True),
     batch_sampler=None,
     dataset=dict(
-        type='RepeatDataset',
-        times=1,
-        dataset=dict(
-            type=dataset_type,
-            metainfo=METAINFO,
-            data_root=data_root,
-            ann_file='ann_train_obbox/',
-            data_prefix=dict(img_path='img_train_obbox/'),
-            img_shape=(1024, 1024),
-            filter_cfg=dict(filter_empty_gt=True),
-            pipeline=train_pipeline)))
+        type=dataset_type,
+        metainfo=METAINFO,
+        data_root=data_root,
+        ann_file='ann_train_obbox/',
+        data_prefix=dict(img_path='img_train_obbox/'),
+        img_shape=(1024, 1024),
+        filter_cfg=dict(filter_empty_gt=True),
+        pipeline=train_pipeline))
 val_dataloader = dict(
     batch_size=1,
     num_workers=2,

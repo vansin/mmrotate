@@ -106,7 +106,7 @@ class RR360LocalVisualizer(DetLocalVisualizer):
                     positions=bboxes.convert_to('qbox').tensor.reshape(
                         -1, 4, 2)[i],
                     colors=[(0, 0, 0), (255, 0, 0), (0, 255, 0), (0, 0, 255)],
-                    font_sizes=20,
+                    font_sizes=40,
                 )
 
             positions = bboxes.centers + self.line_width
