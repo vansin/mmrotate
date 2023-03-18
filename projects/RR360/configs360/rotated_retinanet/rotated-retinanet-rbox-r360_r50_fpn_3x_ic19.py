@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_6x.py',
+    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_3x.py',
     '../_base_/default_runtime.py'
 ]
 angle_version = 'r360'

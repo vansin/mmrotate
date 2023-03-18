@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_1x.py',
+    '../_base_/datasets/dota.py', '../_base_/schedules/schedule_3x.py',
     '../_base_/default_runtime.py'
 ]
 
@@ -193,3 +193,5 @@ model = dict(
             max_per_img=2000)))
 
 optim_wrapper = dict(optimizer=dict(lr=0.005))
+
+load_from = 'https://download.openmmlab.com/mmrotate/v0.1.0/roi_trans/roi_trans_r50_fpn_1x_dota_le90/roi_trans_r50_fpn_1x_dota_le90-d1f0b77a.pth'  # noqa E501

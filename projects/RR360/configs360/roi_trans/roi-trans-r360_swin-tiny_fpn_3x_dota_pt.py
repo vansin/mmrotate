@@ -1,4 +1,4 @@
-_base_ = './roi-trans-r360_r50_fpn_1x_dota.py'
+_base_ = './roi-trans-r360_r50_fpn_3x_dota.py'
 
 pretrained = 'https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth'  # noqa
 
@@ -66,3 +66,5 @@ optim_wrapper = dict(
         betas=(0.9, 0.999),
         weight_decay=0.05),
     paramwise_cfg=dict(custom_keys=custom_keys, norm_decay_mult=0.0))
+
+load_from = 'https://download.openmmlab.com/mmrotate/v0.1.0/roi_trans/roi_trans_swin_tiny_fpn_1x_dota_le90/roi_trans_swin_tiny_fpn_1x_dota_le90-ddeee9ae.pth'  # noqa E501
